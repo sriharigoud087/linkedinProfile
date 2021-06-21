@@ -1,0 +1,21 @@
+.btn-Show {
+    margin-left: 725px;
+}
+
+input {
+    margin: 20px;
+}
+
+.btn-EduShow {
+    margin-left: 800px;
+}
+
+.example-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+}
+
+.example-full-width {
+    width: 100%;
+}

@@ -1,0 +1,164 @@
+<div>
+    <h2 style="color: blue">LinkedIN</h2>
+    <div>
+        <p-menubar [model]="items">
+            <div class="menu-bar-icons">
+                <input type="text" pInputText placeholder="Search" />
+            </div>
+        </p-menubar>
+    </div>
+    <div>
+        <p-card>
+            <img src="./../../assets/./1603560268539.jfif " style="width: 125px; height: 125px; border-radius: 59px" />
+            <p style="color: black">{{ bioData.fullName }}</p>
+            <p>{{ bioData.bio }}</p>
+            <div>
+                <label>{{ bioData.phoneNumber + "   " }}</label>
+                <label style="color: blueviolet">{{ bioData.eMail + "   " }}</label>
+                <label style="color: orange">{{ bioData.country + "    " }}</label>
+                <h4 style="color: greenyellow">{{ autoCompleteValue }}</h4>
+                <div *ngFor="let item of selectedlang">
+                    <li style="color: orangered">{{ item }}</li>
+                </div>
+
+                <div style="display: inline">
+                    <p-button class="btn-Show" (click)="showBasicSkills()" icon="pi pi-user-edit" label="Add Skills"></p-button>
+
+                    <p-button class="btn-Show" (click)="showBasicDialog()" icon="pi pi-user-edit" label="Edit Bio"></p-button>
+                </div>
+            </div>
+            <div>
+                <p-dialog header="Details" [(visible)]="displaySkills" [style]="{ width: '50vw' }">
+                    <Form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+                        <select multiple formControlName="cityName" style="width: 212px">
+              <option value="">Choose your Language</option>
+              <option
+                *ngFor="let lang of Languages"
+                [ngValue]="lang"
+                (change)="changeLang($event)"
+              >
+                {{ lang }}
+              </option>
+            </select>
+
+                        <!-- error block -->
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn btn-danger btn-lg btn-block">
+              Submit
+            </button>
+                    </Form>
+                    <Form class="example-form">
+                        <input type="text" placeholder="Search for a Skill" [formControl]="control" [matAutocomplete]="auto" />
+                        <mat-autocomplete #auto="matAutocomplete">
+                            <mat-option *ngFor="let street of filteredStreets | async" [value]="street">
+                                {{ street }}
+                            </mat-option>
+                        </mat-autocomplete>
+                    </Form>
+                </p-dialog>
+            </div>
+
+            <p-dialog header="Details" [(visible)]="displayBasic" [style]="{ width: '50vw' }" [baseZIndex]="10000">
+                <div>
+                    <Form [formGroup]="bioSection">
+                        <input type="text" pInputText placeholder="fullName" formControlName="fullName" /><br />
+                        <input type="text" pInputText placeholder="bio" formControlName="bio" /><br />
+                        <input type="text" pInputText placeholder="phoneNumber" formControlName="phoneNumber" /><br />
+                        <input type="text" pInputText placeholder="eMail" formControlName="eMail" /><br />
+                        <input type="text" pInputText placeholder="country" formControlName="country" /><br />
+                        <div style="display: flex; justify-content: flex-end">
+                            <p-button (click)="onFormSubmit()" icon="pi pi-check" (click)="displayBasic = false" label="Save" styleClass="p-button-text"></p-button>
+
+                            <p-button icon="pi pi-times" (click)="displayBasic = false" label="Reset"></p-button>
+                        </div>
+                        <!-- <ng-template pTemplate="footer"></ng-template> -->
+                    </Form>
+                </div>
+            </p-dialog>
+        </p-card>
+    </div>
+    <div>
+        <p-card header="Education">
+            <p-button class="btn-EduShow" (click)="showBasicDialogEdu()" icon="pi pi-plus" label="AddEducation"></p-button>
+            <p-dialog header="Education Details" [(visible)]="displayBasicEdu" [style]="{ width: '50vw' }" [baseZIndex]="10000">
+                <div>
+                    <Form [formGroup]="educationSection" style="display: grid">
+                        <input type="text" pInputText placeholder="school" formControlName="school" /><br />
+                        <input type="text" pInputText placeholder="qualification" formControlName="qualification" /><br />
+                        <input type="text" pInputText placeholder="filedofStudy" formControlName="filedofStudy" /><br />
+                        <input type="date" pInputText placeholder="endYear" formControlName="endYear" /><br />
+                        <input type="text" pInputText placeholder="grade" formControlName="grade" /><br />
+                        <input type="text" pInputText placeholder="activities" formControlName="activities" /><br />
+                        <input type="text " pInputText placeholder="description" formControlName="description" /><br />
+                        <div style="display: flex; justify-content: flex-end">
+                            <p-button (click)="onEduSubmit()" icon="pi pi-check" (click)="displayBasicEdu = false" label="Save" styleClass="p-button-text"></p-button>
+                            <p-button (click)="callEditEdu()" [hidden]="displayEditChanges" (click)="displayBasicEdu = false" icon="pi pi-user-edit" label="EditChanges" styleClass="p-button-text"></p-button>
+
+                            <p-button icon="pi pi-times" (click)="displayBasicEdu = false" label="Reset"></p-button>
+                        </div>
+                    </Form>
+                </div>
+            </p-dialog>
+            <div *ngFor="let education of educationDatArray">
+                <p-card>
+                    <i class="pi pi-book" style="color: black"></i>
+
+                    <h4 style="color: black">{{ education.school }}</h4>
+                    <label>{{ education.qualification }},</label
+          ><label>{{ education.filedofStudy }}</label>
+                    <p>{{ education.endYear }}</p>
+                    <label>{{ education.grade }}</label>
+                    <div style="display: flex; justify-content: flex-end">
+                        <p-button (click)="editBasicDialogEdu(education.eduId)" icon="pi pi-user-edit" label="Edit" styleClass="p-button-text"></p-button>
+
+                        <p-button (click)="onDeleteEdu(education.eduId)" icon="pi pi-trash" label="Delete" styleClass="p-button-text"></p-button>
+                    </div>
+                </p-card>
+            </div>
+        </p-card>
+    </div>
+    <div>
+        <p-card header="Experience">
+            <p-button class="btn-EduShow" (click)="showBasicDialogExpi()" icon="pi pi-plus" label="AddExperience"></p-button>
+            <p-dialog header="Experience Details" [(visible)]="displayBasicExpe" [style]="{ width: '50vw' }" [baseZIndex]="10000">
+                <div>
+                    <Form [formGroup]="experienceSection" style="display: grid">
+                        <input type="text" pInputText placeholder="title" formControlName="title" /><br />
+                        <input type="text" pInputText placeholder="employementType" formControlName="employementType" /><br />
+                        <input type="date" pInputText placeholder="company" formControlName="company" /><br />
+                        <input type="text" pInputText placeholder="location" formControlName="location" /><br />
+                        <input type="date" pInputText placeholder="startDate" formControlName="startDate" /><br />
+                        <input type="date " pInputText placeholder="endDate" formControlName="endDate" /><br />
+                        <input type="text" pInputText placeholder="headLine" formControlName="headLine" /><br />
+                        <input type="text" pInputText placeholder="description" formControlName="description" /><br />
+
+                        <div style="display: flex; justify-content: flex-end">
+                            <p-button (click)="onExpeSubmit()" icon="pi pi-check" (click)="displayBasicExpe = false" label="Save" styleClass="p-button-text"></p-button>
+                            <p-button (click)="callEditExpi()" [hidden]="displayEditChanges" (click)="displayBasicExpe = false" icon="pi pi-user-edit" label="EditChanges" styleClass="p-button-text"></p-button>
+
+                            <p-button icon="pi pi-times" (click)="displayBasicExpe = false" label="Reset"></p-button>
+                        </div>
+                    </Form>
+                </div>
+            </p-dialog>
+            <div *ngFor="let experience of experienceDataArray">
+                <p-card>
+                    <i class="pi pi-briefcase" style="color: black"></i>
+
+                    <h4 style="color: black">{{ experience.title }}</h4>
+                    <label>{{ experience.employementType }},</label
+          ><label>{{ experience.company }}</label>
+
+                    <p>{{ experience.location }}</p>
+                    <label>{{ experience.startDate }} TO</label
+          ><label>{{ experience.endDate }}</label>
+                    <div style="display: flex; justify-content: flex-end">
+                        <p-button (click)="editBasicDialofExpi(experience.expiId)" icon="pi pi-user-edit" label="Edit" styleClass="p-button-text"></p-button>
+                        <p-button (click)="onDeleteExpi(experience.expiId)" icon="pi pi-trash" label="Delete" styleClass="p-button-text"></p-button>
+                    </div>
+                </p-card>
+            </div>
+        </p-card>
+    </div>
+</div>

@@ -1,3 +1,10 @@
+![Screenshot (7)](https://user-images.githubusercontent.com/64851662/123828155-dcb49300-d91e-11eb-80db-bd52eb0778d5.png)
+![Screenshot (9)](https://user-images.githubusercontent.com/64851662/123828185-e0e0b080-d91e-11eb-8585-46b4a39605ef.png)
+![Screenshot (10)](https://user-images.githubusercontent.com/64851662/123828196-e4743780-d91e-11eb-869c-7d0f3d5236fa.png)
+![Screenshot (11)](https://user-images.githubusercontent.com/64851662/123828209-e6d69180-d91e-11eb-8bc9-23f214a83c2b.png)
+![Screenshot (12)](https://user-images.githubusercontent.com/64851662/123828219-e938eb80-d91e-11eb-8af1-9a3c253dddc6.png)
+![Screenshot (13)](https://user-images.githubusercontent.com/64851662/123828222-eb9b4580-d91e-11eb-8c0e-5d5584134131.png)
+![Screenshot (14)](https://user-images.githubusercontent.com/64851662/123828236-ee963600-d91e-11eb-8e52-02c0dfb7bcb1.png)
 # LinkedIn
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.8.
